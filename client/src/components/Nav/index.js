@@ -8,12 +8,12 @@ function Nav(props) {
       <a className="navbar-brand" href="/">Google Books</a>
       <ul className="nav">
         <li className="nav-item">
-          <Link to="/" className={window.location.pathname === "/search" ? "nav-link active" : "nav-link"}>
+          <Link to="/search" className={window.location.pathname === "/search" ? "nav-link active" : "nav-link"}>
             Search
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/" className={window.location.pathname === "/saved" ? "nav-link active" : "nav-link"}>
+          <Link to="/saved" className={window.location.pathname === "/saved" ? "nav-link active" : "nav-link"}>
             Saved
           </Link>
         </li>

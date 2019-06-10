@@ -7,7 +7,7 @@ import ResultsDiv from "../components/ResultsDiv";
 import BookListItem from "../components/BookListItem";
 import API from "../utils/API";
 
-class Search extends Component {
+class Saved extends Component {
   // Initialize this.state.books as an empty array
   state = {
     gBooksResults: [],
@@ -16,30 +16,6 @@ class Search extends Component {
 
   // Add code here to get all books from the database and save them to this.state.books
   componentDidMount() {
-    this.queryGoogleBooks("Searching for God Knows What");
-  }
-
-  handleFormChange = event => {
-    this.setState({ gBookQuery: event.target.value })
-  }
-
-  handleFormSubmit = event => {
-    event.preventDefault();
-    this.queryGoogleBooks(this.state.gBookQuery);
-  }
-
-  // gets books from Google Books API
-  queryGoogleBooks(bookQuery) {
-    let self = this;
-
-    let formattedBookQuery = bookQuery.trim().replace(/ /g, "+");
-    this.setState({ gBookQuery: formattedBookQuery });
-    API.queryGoogleFor(formattedBookQuery || this.state.gBookQuery)
-      .then(function (res) {
-        console.log(res.data.items);
-        self.setState({ gBooksResults: res.data.items });
-      })
-      .catch(err => console.log(err));
   }
 
   render() {
@@ -48,7 +24,6 @@ class Search extends Component {
         <Jumbotron />
         <Container fluid>
           <Row>
-            <SearchDiv onChange={this.handleFormChange} onSubmit={this.handleFormSubmit} />
             <ResultsDiv>
               {this.state.gBooksResults.length ? (
                 <div>
@@ -73,4 +48,4 @@ class Search extends Component {
   }
 }
 
-export default Search;
+export default Saved;
