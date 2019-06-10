@@ -1,0 +1,17 @@
+.bookDiv {
+  float: left;
+  width: inherit;
+  border: 1px solid gray;
+  border-radius: 3px;
+  padding: 10px;
+  margin: 10px;
+}
+
+/* .bookImg {
+  display: inline-block;
+  margin-right: 10px;
+} */
+
+.bookInfo {
+  display: inline-block;
+}
