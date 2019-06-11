@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import Jumbotron from "../components/Jumbotron";
-//import DeleteBtn from "../components/DeleteBtn";
 import { Row, Container } from "../components/Grid";
 import SearchDiv from "../components/SearchDiv";
 import ResultsDiv from "../components/ResultsDiv";
-import BookListItem from "../components/BookListItem";
+import BookListItemSearch from "../components/BookListItemSearch";
 import API from "../utils/API";
 
 class Search extends Component {
@@ -17,6 +16,18 @@ class Search extends Component {
   // Add code here to get all books from the database and save them to this.state.books
   componentDidMount() {
     this.queryGoogleBooks("Searching for God Knows What");
+  }
+
+  handleSaveBook = event => {
+    let target = event.target;
+    let bookToSave = {
+      title: target.getAttribute("data-title"),
+      authors: target.getAttribute("data-authors"),
+      description: target.getAttribute("data-description"),
+      link: target.getAttribute("data-link")
+    }
+    console.log(bookToSave);
+    API.saveBook(bookToSave);
   }
 
   handleFormChange = event => {
@@ -53,13 +64,13 @@ class Search extends Component {
               {this.state.gBooksResults.length ? (
                 <div>
                   {this.state.gBooksResults.map(book =>
-                    <BookListItem
+                    <BookListItemSearch
                       key={book.etag}
-                      thumb="https://via.placeholder.com/150x200"
                       title={book.volumeInfo.title}
                       authors={book.volumeInfo.authors}
                       description={book.volumeInfo.description}
-                      link={book.volumeInfo.infoLink} />
+                      link={book.volumeInfo.infoLink}
+                      saveBook={this.handleSaveBook} />
                   )}
                 </div>
               ) : (

@@ -1,0 +1,16 @@
+.bookDiv {
+  float: left;
+  width: inherit;
+  border: 1px solid gray;
+  border-radius: 3px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.bookInfo {
+  display: inline-block;
+}
+
+.btn {
+  margin-right: 5px;
+}

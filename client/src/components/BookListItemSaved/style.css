@@ -7,11 +7,10 @@
   margin: 10px;
 }
 
-/* .bookImg {
-  display: inline-block;
-  margin-right: 10px;
-} */
-
 .bookInfo {
   display: inline-block;
+}
+
+.btn {
+  margin-right: 5px;
 }

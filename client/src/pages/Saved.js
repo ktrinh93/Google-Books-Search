@@ -2,20 +2,31 @@ import React, { Component } from "react";
 import Jumbotron from "../components/Jumbotron";
 //import DeleteBtn from "../components/DeleteBtn";
 import { Row, Container } from "../components/Grid";
-import SearchDiv from "../components/SearchDiv";
 import ResultsDiv from "../components/ResultsDiv";
-import BookListItem from "../components/BookListItem";
+import BookListItemSaved from "../components/BookListItemSaved";
 import API from "../utils/API";
 
 class Saved extends Component {
-  // Initialize this.state.books as an empty array
   state = {
-    gBooksResults: [],
+    savedBooks: [],
     gBookQuery: ""
   };
 
-  // Add code here to get all books from the database and save them to this.state.books
+  // gets all books from db and save them to this.state.savedBooks
   componentDidMount() {
+    let self = this;
+    API.getBooks()
+    .then(function(res) {
+      self.setState({savedBooks: res.data});
+      console.log(res.data);
+    })
+    .catch(function(err) {
+      console.log(err);
+    })
+  }
+
+  handleDeleteBook = event => {   
+    API.deleteBook(event.target.getAttribute("data-id"));
   }
 
   render() {
@@ -25,20 +36,22 @@ class Saved extends Component {
         <Container fluid>
           <Row>
             <ResultsDiv>
-              {this.state.gBooksResults.length ? (
+              {this.state.savedBooks.length ? (
                 <div>
-                  {this.state.gBooksResults.map(book =>
-                    <BookListItem
-                      key={book.etag}
+                  {this.state.savedBooks.map(book =>
+                    <BookListItemSaved
+                      key={book._id}
+                      dbid={book._id}
                       thumb="https://via.placeholder.com/150x200"
-                      title={book.volumeInfo.title}
-                      authors={book.volumeInfo.authors}
-                      description={book.volumeInfo.description}
-                      link={book.volumeInfo.infoLink} />
+                      title={book.title}
+                      authors={book.authors}
+                      description={book.description}
+                      link={book.link}
+                      delBook={this.handleDeleteBook}/>
                   )}
                 </div>
               ) : (
-                  <p>No books found</p>
+                  <p>No books saved</p>
                 )}
             </ResultsDiv>
           </Row>
